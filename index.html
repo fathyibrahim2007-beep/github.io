@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<title>انطقها صح</title>
+<style>
+:root{box-sizing:border-box;--bg:#f2f4fb;--card:#fff;--tx:#1b1f2a;--mut:#6b7280;--ac:#4f46e5;--bd:#e1e5f0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1117;--card:#1b1e2b;--tx:#eceef5;--mut:#9aa1b2;--ac:#8b8cff;--bd:#2e3248}}
+:root[data-theme="dark"]{--bg:#0f1117;--card:#1b1e2b;--tx:#eceef5;--mut:#9aa1b2;--ac:#8b8cff;--bd:#2e3248}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed 60%,#06b6d4);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 22px) 18px 56px;text-align:center;border-radius:0 0 28px 28px}
+header svg{width:84px;height:84px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25))}
+h1{font-size:20px;line-height:1.4;margin:10px 0 4px}
+header p{margin:0;font-size:13px;opacity:.85}
+main{max-width:520px;margin:-34px auto 0;padding:0 14px calc(env(safe-area-inset-bottom,0px) + 20px)}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 4px 14px rgba(40,40,90,.08)}
+textarea{width:100%;min-height:110px;resize:vertical;border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:18px;background:transparent;color:var(--tx);direction:ltr;text-align:left;font-family:inherit}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;border:1px solid var(--bd);background:transparent;color:var(--tx);border-radius:12px;padding:10px 12px;cursor:pointer}
+button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.sp{flex:1;min-width:68px}
+.lg{font-weight:600}
+#go{flex:2;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:0;font-size:17px;padding:15px;border-radius:14px;box-shadow:0 6px 14px rgba(79,70,229,.35)}
+#stop{flex:1}
+input[type=range]{width:100%;accent-color:var(--ac)}
+select{width:100%;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit}
+#tr{font-size:19px;line-height:1.7;min-height:28px;direction:rtl}
+#trs{font-size:12px;color:var(--mut);margin-top:6px}
+#note{font-size:13px;color:var(--mut);margin:8px 0 0}
+</style>
+</head>
+<body>
+<header>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="logo">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e0e7ff"/></linearGradient></defs>
+<rect x="4" y="4" width="92" height="92" rx="24" fill="rgba(255,255,255,.18)"/>
+<path d="M22 24h44a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H46L32 80V66h-10a10 10 0 0 1-10-10V34a10 10 0 0 1 10-10z" fill="url(#g)" transform="translate(2,-2)"/>
+<text x="44" y="56" font-family="Arial,sans-serif" font-weight="800" font-size="30" fill="#4f46e5" text-anchor="middle">Aa</text>
+<path d="M80 36q7 10 0 20M87 30q12 16 0 32" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
+<h1>انطقها صح</h1>
+<p>تعلم نطق الإنجليزية والإسبانية والألمانية • مع الترجمة</p>
+</header>
+<main>
+<div class="c"><div class="row" id="langs"><button class="lg sp" data-l="en">English</button><button class="lg sp" data-l="es">Español</button><button class="lg sp" data-l="de">Deutsch</button></div></div>
+<div class="c"><textarea id="t" placeholder="Type a word or sentence..." spellcheck="false">Hello, how are you today?</textarea></div>
+<div class="c"><label>الترجمة بالعربي</label><div id="tr">—</div><div id="trs"></div></div>
+<div class="c">
+<label>السرعة: <b id="rv">1×</b></label>
+<div class="row" style="margin-bottom:10px">
+<button class="sp" data-r="0.5">بطيء</button><button class="sp" data-r="0.75">متوسط</button><button class="sp" data-r="1">عادي</button><button class="sp" data-r="1.25">سريع</button>
+</div>
+<input id="r" type="range" min="0.3" max="1.6" step="0.05" value="1">
+</div>
+<div class="row" style="margin-bottom:12px"><button id="go">▶ انطق</button><button id="stop">■ إيقاف</button></div>
+<div class="c"><label id="vl">الصوت</label><select id="v"></select><p id="note"></p></div>
+</main>
+<script>
+var L={
+en:{lang:'en-US',re:/^en[-_]US$/i,fb:/^en/i,pair:'en|ar',ph:'Type a word or sentence...',txt:'Hello, how are you today?',nm:'الإنجليزية (أمريكي)',vn:'إنجليزي أمريكي'},
+es:{lang:'es-ES',re:/^es[-_]ES$/i,fb:/^es/i,pair:'es|ar',ph:'Escribe una palabra o frase...',txt:'Hola, ¿cómo estás hoy?',nm:'الإسبانية',vn:'إسباني'},
+de:{lang:'de-DE',re:/^de[-_]DE$/i,fb:/^de/i,pair:'de|ar',ph:'Schreibe ein Wort oder einen Satz...',txt:'Hallo, wie geht es dir heute?',nm:'الألمانية',vn:'ألماني'}
+};
+var synth=window.speechSynthesis,t=document.getElementById('t'),r=document.getElementById('r'),
+rv=document.getElementById('rv'),vs=document.getElementById('v'),note=document.getElementById('note'),
+vl=document.getElementById('vl'),tr=document.getElementById('tr'),trs=document.getElementById('trs'),
+voices=[],cur='en',KEY='tr_multi_v1';
+try{var sv=localStorage.getItem('lang');if(sv&&L[sv])cur=sv;}catch(e){}
+function getC(){try{return JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){return {};}}
+function setC(c){try{localStorage.setItem(KEY,JSON.stringify(c));}catch(e){}}
+function load(){
+  if(!synth){note.textContent='المتصفح ده مش بيدعم النطق. افتح الرابط في Chrome أو Safari.';return;}
+  var c=L[cur],all=synth.getVoices();
+  voices=all.filter(function(v){return c.re.test(v.lang);});
+  if(!voices.length)voices=all.filter(function(v){return c.fb.test(v.lang);});
+  voices.sort(function(a,b){return (b.localService-a.localService);});
+  vs.innerHTML='';
+  voices.forEach(function(v,i){var o=document.createElement('option');o.value=i;o.textContent=v.name+(v.localService?' • أوفلاين':' • أونلاين');vs.appendChild(o);});
+  note.textContent=voices.length?(voices[0].localService?'الأصوات الأوفلاين شغالة من غير إنترنت.':'مفيش صوت أوفلاين متاح. نزّل صوت '+c.vn+' من إعدادات الجهاز (Text-to-speech).'):'مفيش أصوات '+c.nm+' على الجهاز. نزّل صوت من إعدادات الجهاز (Text-to-speech).';
+}
+function setLang(k){
+  var defaults=Object.keys(L).map(function(x){return L[x].txt;});
+  cur=k;try{localStorage.setItem('lang',k);}catch(e){}
+  document.querySelectorAll('.lg').forEach(function(b){b.classList.toggle('on',b.dataset.l===k);});
+  t.placeholder=L[k].ph;
+  if(!t.value.trim()||defaults.indexOf(t.value)>-1)t.value=L[k].txt;
+  vl.textContent='الصوت ('+L[k].vn+')';
+  tr.textContent='—';trs.textContent='';
+  if(synth)synth.cancel();
+  load();
+}
+function translate(s){
+  var k=cur+'|'+s.toLowerCase().trim(),c=getC();
+  if(c[k]){tr.textContent=c[k];trs.textContent='محفوظة (تعمل بدون إنترنت)';return;}
+  if(s.length>450){tr.textContent='—';trs.textContent='النص طويل، قسّمه لجمل أقصر للترجمة.';return;}
+  tr.textContent='...';trs.textContent='جاري الترجمة';
+  var lg=cur;
+  fetch('https://api.mymemory.translated.net/get?langpair='+L[lg].pair+'&q='+encodeURIComponent(s))
+  .then(function(x){return x.json();})
+  .then(function(d){
+    var x=d&&d.responseData&&d.responseData.translatedText;
+    if(!x)throw 0;
+    var c2=getC();c2[k]=x;
+    var ks=Object.keys(c2);if(ks.length>800)delete c2[ks[0]];
+    setC(c2);
+    if(lg===cur){tr.textContent=x;trs.textContent='تم حفظ الترجمة';}
+  })
+  .catch(function(){if(lg===cur){tr.textContent='—';trs.textContent='الترجمة تحتاج إنترنت لأول مرة. النطق شغال بدون نت.';}});
+}
+function setRate(x){r.value=x;rv.textContent=Number(x)+'×';
+  document.querySelectorAll('.sp:not(.lg)').forEach(function(b){b.classList.toggle('on',Number(b.dataset.r)===Number(x));});}
+function speak(){
+  if(!synth)return;var s=t.value.trim();if(!s)return;
+  translate(s);
+  synth.cancel();
+  var u=new SpeechSynthesisUtterance(s);
+  u.lang=L[cur].lang;u.rate=Number(r.value);
+  var v=voices[vs.value];if(v){u.voice=v;u.lang=v.lang;}
+  synth.speak(u);
+}
+document.getElementById('go').onclick=speak;
+document.getElementById('stop').onclick=function(){synth&&synth.cancel();};
+r.oninput=function(){setRate(r.value);};
+document.querySelectorAll('.sp[data-r]').forEach(function(b){b.onclick=function(){setRate(b.dataset.r);speak();};});
+document.querySelectorAll('.lg').forEach(function(b){b.onclick=function(){setLang(b.dataset.l);};});
+if(synth){synth.onvoiceschanged=load;}
+setRate(1);setLang(cur);
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
+</script>
+</body>
+</html>
